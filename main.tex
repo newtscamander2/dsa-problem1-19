@@ -1,0 +1,241 @@
+\documentclass{article}
+
+\usepackage[a4paper]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage[noend]{algpseudocode}
+\usepackage{amsthm}
+\usepackage{colortbl}
+\usepackage{graphicx}
+\usepackage{lineno}
+\usepackage[textwidth=4cm]{todonotes}
+
+% Adjust margins, to allow space for margin notes
+\geometry{left=3cm, right=6cm, top=3cm, bottom=3cm, marginparwidth=4cm} 
+
+% If you add line numbers, it is easier to refer to the handin in the feedback
+\linenumbers
+
+% Adjust the \todo notes
+\setuptodonotes{noline, color=green!15, size=\scriptsize}
+
+\newtheorem*{exercise}{Exercise}
+\newcommand{\grey}{\cellcolor{black!25}}
+
+\title{Algorithms and Data Structures \\
+  Handin 0: Pair sum}
+
+\author{202500001 John Doe \\
+  202500002 Jane Roe}
+
+%\date{September 1, 2025}  % Use \date to set a specific date
+
+\begin{document}
+
+\maketitle
+
+\todo[inline]{This is an example of how the handin for an assignment in
+	Algorithms and Data Structures can be structured. The following exercise is
+	not an assignment in the course. It is a requirement that the \emph{cover
+		page} states who contributed to the assignment, and that these names are also
+	included in the \emph{filename}. This solution is written in \LaTeX, but this
+	is not a requirement. You are free to use another word processor or to submit
+	a scan of a handwritten solution.}
+
+\begin{exercise}[Pair sum]
+	\todo{It is fine to repeat the problem statement in the submission, but it is
+		not necessary.}
+	%
+	Describe an algorithm that given an array $A$ containing $n$ integers and an
+	integer~$x$, returns two integers from $A$ with sum~$x$.  If no pair of
+	integers in $A$ have sum $x$, the algorithm should return that no such pair
+	exists.  State and argue about the running time of your algorithm.
+\end{exercise}
+
+\section*{Comment}
+
+\todo{If something is unclear in the problem statement, then write this, and
+	write how you have interpreted the assignment.}
+
+In this solution, we assume that values are to be returned from two different
+entries in $A$. That is, if $x=8$ and $A[3]=4$, then the value 4 may only be
+returned twice if 4 is found at two different entries in $A$. If the same entry
+may be returned twice, then the simple solution below must be adjusted so that
+$i$ runs from 1 to $n$ and $j$ runs from $i$ to $n$, instead of from $i+1$ to
+$n$. In the efficient solution, the loop condition $i < j$ must be changed to
+$i \leq j$.
+
+\section*{Simple solution}
+
+\todo{In the textual description, try to be precise, for example, by using
+	mathematical notation and variables to refer to the construction.}
+
+A simple (but not efficient) solution is to try all possible pairs
+$A[i]$ and $A[j]$, where $1\leq i < j \leq n$, and return the first
+pair found, $A[i]$ and $A[j]$, where $A[i]+A[j]=x$.  If no pair
+sums to $x$, this is returned.  For each $i \in
+	\{1,2,\ldots,n-1\}$ we consider all $j \in \{i+1,i+2,\ldots,n\}$.
+Note that we only let $i$ run to $n-1$, since there must be at least
+one~$j$ that is strictly greater than~$i$.
+
+\todo{The key aspects of a submission can often be illustrated
+	with a figure. For example, this figure clarifies that the array
+	$A$ is indexed $1,\ldots,n$, and that $i$ is to the left of $j$.}
+
+\todo{A figure can also be an picture that you insert with
+	\texttt{\textbackslash includegraphics}}
+
+\begin{center}
+	%\includegraphics[width=8cm]{whiteboard.jpg}
+	\begin{tabular}{ccccccccccccc}
+		                               & 1 &  & $i$ &  & $j$ &  & $n$ \\
+		\cline{2-8}
+		$A$                            &
+		\multicolumn{1}{|c|}{2}        &
+		\multicolumn{1}{|c|}{$\cdots$} &
+		\multicolumn{1}{|c|}{14}       &
+		\multicolumn{1}{|c|}{$\cdots$} &
+		\multicolumn{1}{|c|}{36}       &
+		\multicolumn{1}{|c|}{$\cdots$} &
+		\multicolumn{1}{|c|}{5}
+		\\
+		\cline{2-8}
+	\end{tabular}
+\end{center}
+
+The algorithm can be described by the following pseudocode:
+
+\todo{Pseudocode can often clarify some details in the textual
+	explanation of one's algorithm, but pseudocode should never stand alone.}
+
+\begin{center}
+	\begin{minipage}{5.8cm}
+		\begin{algorithmic}
+			\Procedure{PairSum}{$A[1..n], x$}
+			\For{$i = 1$ \textbf{to} $n - 1$}
+			\For{$j = i + 1$ \textbf{to} $n$}
+			\If{$A[i] + A[j] = x$}
+			\State \Return $A[i]$ and $A[j]$
+			\EndIf
+			\EndFor
+			\EndFor
+			\State \Return \textit{no pair sums to $x$}
+			\EndProcedure
+		\end{algorithmic}
+	\end{minipage}
+\end{center}
+
+\todo{In the analysis of algorithms, one will often have to look at a series
+	and find a compact expression for the sum, or an approximation of the sum.}
+
+The running time of the algorithm is proportional to the number of pairs
+$A[i]$ and $A[j]$ that must be tested. In the worst case, no pair
+sums to $x$, where all possible pairs must be tested. The number of
+possible pairs is given by
+\[\sum_{i=1}^{n-1} (n-i) = (n-1) + (n-2) + \cdots + (n-(n-1)) = \sum_{i=1}^{n-1} i = \frac{n(n-1)}{2}\;,\]
+since for a given $i$ there are $n-i$ possible values for $j$.
+It follows that the running time is on the order of~$n^2$.
+
+\todo{Later in the course, we will use $O$-notation to formally
+	argue about the order of magnitude of running times.}
+
+\section*{Efficient solution}
+
+\todo{One can often come up with different algorithms as a solution to a
+	problem, where some are more efficient than others. Ideally, in this course we
+	want to find the most efficient algorithm to solve a problem. It is fine to
+	describe multiple solutions to a problem if it can help as a warm up to the
+	description of a more complicated solution by first describing a simpler one.
+	\textit{However, it is often sufficient to only describe the most efficient
+		solution one can find}.}
+
+A more efficient solution is as follows. First sort $A$ using
+\textsc{MergeSort} [CLRS, Chapter 2.3], such that the values are in
+non-decreasing order, i.e., $A[1] \leq A[2] \leq \cdots \leq A[n]$.
+Afterward, we search for a pair $A[i]$ and $A[j]$ where $A[i]+A[j]=x$.
+We start by setting $i=1$ and $j=n$. If $A[i]+A[j]=x$, we have
+found a desired pair and can return it. Otherwise, there are two
+cases: $A[i]+A[j]<x$ or $A[i]+A[j]>x$. In the first case,
+we increment $i$ by one, and in the second case, we decrement $j$ by one.
+We repeat this until we have found a pair with sum $x$, or
+$i=j$, at which point we return that no pair with sum~$x$ exists.
+The following pseudocode gives the details.
+
+\begin{center}
+	\begin{minipage}{6cm}
+		\begin{algorithmic}
+			\Procedure{PairSum}{$A[1..n], x$}
+			\State $A = \textsc{MergeSort}(A)$
+			\State $i = 1$
+			\State $j = n$
+			\While{$i < j$}
+			\If{$A[i] + A[j] = x$}
+			\State \Return $A[i]$ and $A[j]$
+			\ElsIf{$A[i] + A[j] < x$}
+			\State  $i = i + 1$
+			\Else
+			\State  $j = j - 1$
+			\EndIf
+			\EndWhile
+			\State \Return \textit{no pair sums to $x$}
+			\EndProcedure
+		\end{algorithmic}
+	\end{minipage}
+\end{center}
+
+\todo{When describing an algorithm, one must also argue that it solves the
+	desired problem, i.e., provide a proof of correctness.}
+
+The correctness of the above algorithm is not obvious. The figure
+below illustrates the state of the algorithm at the beginning of any
+iteration of the \textbf{while}-loop. It is assumed here that $A$ has already
+been sorted.
+
+\begin{center}
+	\begin{tabular}{ccccccccccccc}
+		                                     & 1 &  & $i$ &  & $j$ &  & $n$ \\
+		\cline{2-8}
+		$A$                                  &
+		\multicolumn{1}{|c|}{\grey 2}        &
+		\multicolumn{1}{|c|}{\grey $\cdots$} &
+		\multicolumn{1}{|c|}{5}              &
+		\multicolumn{1}{|c|}{$\cdots$}       &
+		\multicolumn{1}{|c|}{14}             &
+		\multicolumn{1}{|c|}{\grey $\cdots$} &
+		\multicolumn{1}{|c|}{\grey 36}
+		\\
+		\cline{2-8}
+	\end{tabular}
+\end{center}
+
+The two indices $i$ and $j$ satisfy $1\leq i \leq j \leq n$, where $i=1$
+and $j=n$ at the beginning. The invariant is that all elements to the left of
+$i$ and to the right of $j$, i.e., $A[1..i-1]$ and $A[j+1..n]$ (gray
+entries in the figure), are known to \emph{not} be able to form a pair with another
+element (white or gray) and achieve the sum~$x$. If
+$A[i]+A[j]<x$, then we know that $A[i]+A[k]<x$ for all $k$ where $i < k
+	\leq j$, since $A[k] \leq A[j]$ when $A$ is sorted. Thus, $A[i]$ cannot
+form a pair with any of the remaining white entries to achieve
+the sum $x$, i.e., the algorithm can rule out $A[i]$ by incrementing $i$ by
+one (corresponding to coloring the entry gray in the figure). Similarly, if
+$A[i]+A[j]>x$, then $A[k]+A[j]>x$ for $i \leq k < j$, and the algorithm
+can rule out $A[j]$ by decrementing $j$ by one. It follows that only
+elements in $A[i..j]$ can potentially form pairs that sum to $x$,
+and the algorithm can never overlook a pair with sum~$x$.
+
+The running time of the algorithm is dominated by the time for
+\textsc{MergeSort} plus the number of times the \textbf{while}-loop
+is repeated. According to [CLRS, Chapter 2.3]
+%
+\todo{Remember to provide relevant references to constructions used
+	from the literature.}
+%
+the time for \textsc{MergeSort} is on the order of~$n\log n$.
+Since each iteration of the \textbf{while}-loop reduces the distance
+$j - i \geq 0$ by exactly one, we know that the \textbf{while}-loop is iterated at most
+$n-1$ times. Thus, the time besides the call to
+\textsc{MergeSort} is proportional to $n$, so the time is
+dominated by the time for \textsc{MergeSort}. In total, the
+running time is on the order of~$n\log n$.
+
+\end{document}
