@@ -44,11 +44,14 @@ To complete this assignment we have to prove that
 To start with we want to prove that $S = n^2$.
 
 From the pseudo code we can see that $i$ a incrementing sum which we can write as $\sum_{0}^{n}1$. $s$ is also a incrementing sum of $i$ which can be written as $s = \sum_{i=0}^{n}i$.
-$s$ is at the end of our program set to $s = s + s - n$
 
+$s$ is at the end of our program set to $s = s + s - n$, which we can write as
 $$s_n = 2\sum_{i=0}^{n}i - n$$
-$$s_n = 2 \cdot \frac{n(n+1)}{2}-n$$
-$$s_n = x \cdot (n+1) -n$$
+From the mathematics cheats sheet in the supplementary notes we know that $\sum_{i=1}^{n}i = \frac{n(n+1)}{2}$.
+
+We can therefore write
+$$s_n = 2\frac{n(n+1)}{2}-n$$
+$$s_n = x(n+1) -n$$
 $$s_n = n^2 + n - n$$
 $$s_n = n^2$$
 
