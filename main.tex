@@ -39,12 +39,12 @@
 \end{exercise}
 
 \begin{figure}[H]
-    \centering
-    \includegraphics[width=0.3\linewidth]{algo.png}
+	\centering
+	\includegraphics[width=0.3\linewidth]{algo.png}
 \end{figure}
 
 \section*{Comment}
-To complete this assignment we have to prove that 
+To complete this assignment we have to prove that
 
 \section*{Our solution}
 To start with we want to prove that $S = n^2$.
@@ -64,8 +64,9 @@ $$s_n = n^2$$
 
 Which is proof that $s = n^2$.
 
+Loop invariant:
 
 \begin{equation}
-	0 \leq i \leq n \land 0 \leq s \leq n^2
+	0 \leq i \leq n \land 0 \leq s \leq \sum_{i=0}^{n}i
 \end{equation}
 \end{document}
