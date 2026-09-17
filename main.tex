@@ -82,13 +82,14 @@ To prove the loop invariant $I$ using proof by induction\dots
 For the base case (which is the start of our loop) we can verify $0 \leq i \leq n$ which becomes $0 \leq 0 \leq 0$ which is true. We can also verify $0 \leq s \leq \sum_{f=0}^{n}f$ which becomes $0 \leq 0 \leq 0$ since if $n=0$ (which is a possibility since $n\geq0$ is the only requirement for $n$) then $\sum_{f=0}^{n}f = 0$.
 Our loop invariant therefore holds at the start of our loop.
 
-To prove by induction we assume that $I(S) \Rightarrow I(S')$, where $S'$ is the next step in our loop and $i' = i + 1, s' = s + i$.
+To prove by induction we assume that $I(S) \Rightarrow I(S')$, where $S'$ is the next step in our loop and $i' = i + 1, s' = s + i$. We assume that $I(S)$ is not the termination step. So $i < n \land s < \sum_{f=0}^{n}f$.
 
-$$0 \leq i \leq n \land 0 \leq s \leq \sum_{f=0}^{n}f \Rightarrow 0 \leq i+1 \leq n \land 0 \leq s+i \leq \sum_{f=0}^{n}f$$
+$$(0 \leq i < n) \land (0 \leq s < \sum_{f=0}^{n}f) \Rightarrow (0 \leq i+1 \leq n) \land (0 \leq s+i \leq \sum_{f=0}^{n}f)$$
+
 
 The loop stops when $i < n$ is no longer true. $i$ is incremented in the loop. This means that the last iteration of the loop $i=n, s=\sum_{f=0}^{n}, n\geq0$.
 We can now check that our loop invariant holds at the loop termination. The loop invariant at termination can be written as:
-$$0 \leq i \leq n \land 0 \leq s \leq \sum_{i=0}^{n}i = 0 \leq n \leq n \land 0 \leq \sum_{f=0}^{n}f \leq \sum_{f=0}^{n}f$$
-
+$$0 \leq i \leq n \land 0 \leq s \leq \sum_{i=0}^{n}i \iff 0 \leq n \leq n \land 0 \leq \sum_{f=0}^{n}f \leq \sum_{f=0}^{n}f$$
+And we can see that it holds for the termination of our loop because $n\leq n$ is true, and $\sum_{f=0}^{n}f \leq \sum_{f=0}^{n}f$ is also true.
 
 \end{document}
