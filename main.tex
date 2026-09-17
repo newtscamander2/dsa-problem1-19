@@ -73,14 +73,14 @@ The loop invariant for the given loop is therefore
 \end{equation}
 
 \vspace{5mm}
-\textbf{Proof by induction}
+\subsubsection*{Proof by induction}
 Base case $n=1$:
 $i=0, s = 0, n \geq 0$
 Let $S_{i}$ represent the state of the while-loop at a given iteration $i$ thus $S_0$ will be the first iteration of the while-loop after the proceeding code has executed.
 To prove the loop invariant $I$ using proof by induction\dots
 
 For the base case (which is the start of our loop) we can verify $0 \leq i \leq n$ which becomes $0 \leq 0 \leq 0$ which is true. We can also verify $0 \leq s \leq \sum_{f=0}^{n}f$ which becomes $0 \leq 0 \leq 0$ since if $n=0$ (which is a possibility since $n\geq0$ is the only requirement for $n$) then $\sum_{f=0}^{n}f = 0$.
-Our loop invariant therefore holds at the start of our loop. 
+Our loop invariant therefore holds at the start of our loop.
 
 To prove by induction we assume that $I(S) \Rightarrow I(S')$, where $S'$ is the next step in our loop and $i' = i + 1, s' = s + i$.
 
