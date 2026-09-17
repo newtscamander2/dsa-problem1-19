@@ -66,7 +66,7 @@ Which is proof that $s = n^2$.
 
 One easy loop invariant we can see is that $i$ is initialized as $0$. Therefore we can set the loop invariant $0 \leq i$. From the proof of $s = n^2$ we know that $i = \sum_{0}^{n}1=n$. We can therefore also say that $i \leq n$. We can prove these loop invariants with induction.
 
-Loop invariant:
+The loop invariant for the given loop is therefore
 
 \begin{equation}
 	I(s_n): 0 \leq i \leq n \land 0 \leq s \leq \sum_{i=0}^{n}i
