@@ -69,12 +69,17 @@ One easy loop invariant we can see is that $i$ is initialized as $0$. Therefore 
 The loop invariant for the given loop is therefore
 
 \begin{equation}
-	I(s_n): 0 \leq i \leq n \land 0 \leq s \leq \sum_{i=0}^{n}i
+	I(S_i): 0 \leq i \leq n \land 0 \leq s \leq \sum_{i=0}^{n}i
 \end{equation}
 
 \vspace{5mm}
 \textbf{Proof by induction}
-Base case $n=1$:
+Let $S_{i}$ represent the state of the while-loop at a given iteration $i$ thus $S_0$ will be the first iteration of the while-loop after the proceeding code has executed.
+To prove the loop invariant $I$ using proof by induction\dots
+
+For the induction proof it is assumed that $S' \rightarrow S'$.
+
+Base case $S_0$:
 $i=0, s = 0$
 
 
