@@ -86,6 +86,7 @@ To prove by induction we assume that $I(S) \Rightarrow I(S')$, where $S'$ is the
 
 $$(0 \leq i < n) \land (0 \leq s < \sum_{f=0}^{n}f) \Rightarrow (0 \leq i+1 \leq n) \land (0 \leq s+i \leq \sum_{f=0}^{n}f)$$
 
+We can from our induction see that if $I(S)$ holds and it is no the termination step, then $I(S')$ must also hold since $s \leq \sum_{f=0}^{n}f$ only becomes false once $i > n$, which is not possible according to our loop invariant.
 
 The loop stops when $i < n$ is no longer true. $i$ is incremented in the loop. This means that the last iteration of the loop $i=n, s=\sum_{f=0}^{n}, n\geq0$.
 We can now check that our loop invariant holds at the loop termination. The loop invariant at termination can be written as:
